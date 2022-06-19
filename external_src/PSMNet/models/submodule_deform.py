@@ -39,7 +39,6 @@ class DeformBlock(nn.Module):
 
         self.downsample = downsample
         self.stride = stride
-        print("deform")
 
     def forward(self, x):
         out = self.conv1(x)
