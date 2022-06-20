@@ -34,8 +34,11 @@ If this work is useful to you, please cite our paper:
 10. [Running pretrained SUPs](#running-sups)
 11. [Training SUPs](#training-sups)
 12. [Training stereo models with deformable convolutions](#training-deform-models)
-13. [Related projects](#related-projects)
-14. [License and disclaimer](#license-disclaimer)
+13. [Finetuning stereo models using adversarial data augmentation](#finetune-stereo-models)
+14. [Evaluating stereo models on image corruptions](#image-corruption)
+15. [Evaluating classwise error for SUPs](#classwise-error)
+16. [Related projects](#related-projects)
+17. [License and disclaimer](#license-disclaimer)
 
 ## About Adversarial Perturbations <a name="about-adversarial-perturbations"></a>
 Adversarial perturbations are small signals that, when added to images, are visually imperceptible yet can cause the output of a deep neural network to change dramatically. They have been studied extensively for single-image-based tasks such as classification, detection, segmentation, and depth prediction. For example, we know that a deep network can be fooled to misclassify a panda as a gibbon, incorrectly detect a dog as a train, or a person, or even remove a biker from the 3D scene (see below).
@@ -345,7 +348,7 @@ Error w.r.t. ground truth
                 6.7159      4.5877      1.9279      0.1588
 ```
 
-## Evaluating classwise error for SUPs
+## Evaluating classwise error for SUPs <a name="classwise-error"></a>
 To evaluate the effect of SUPs on different classes in the stereo pair, run the following command
 ```
 bash bash/plots/classwise_error_[MODEL_NAME].sh
