@@ -48,12 +48,6 @@ KITTI_TRAIN_IMAGE0_OUTPUT_FILEPATH = os.path.join(
 KITTI_TRAIN_IMAGE1_OUTPUT_FILEPATH = os.path.join(
     TRAIN_OUTPUT_REF_DIRPATH,
     'kitti_train_image1.txt')
-KITTI_TRAIN_SEGMENTATION0_OUTPUT_FILEPATH = os.path.join(
-    TRAIN_OUTPUT_REF_DIRPATH,
-    'kitti_train_seg0.txt')
-KITTI_TRAIN_SEGMENTATION1_OUTPUT_FILEPATH = os.path.join(
-    TRAIN_OUTPUT_REF_DIRPATH,
-    'kitti_train_seg1.txt')
 
 # KITTI stereo flow dataset
 KITTI_STEREO_FLOW_ALL_IMAGE0_OUTPUT_FILEPATH = os.path.join(
@@ -80,12 +74,6 @@ KITTI_STEREO_FLOW_ALL_LEFT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH = os.path.join(
 KITTI_STEREO_FLOW_ALL_RIGHT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH = os.path.join(
     TRAIN_OUTPUT_REF_DIRPATH,
     'kitti_stereo_flow_all_right_focal_length_baseline.txt')
-KITTI_STEREO_FLOW_ALL_SEG0_OUTPUT_FILEPATH = os.path.join(
-    TRAIN_OUTPUT_REF_DIRPATH,
-    'kitti_stereo_flow_all_seg0.txt')
-KITTI_STEREO_FLOW_ALL_SEG1_OUTPUT_FILEPATH = os.path.join(
-    TRAIN_OUTPUT_REF_DIRPATH,
-    'kitti_stereo_flow_all_seg1.txt')
 
 KITTI_STEREO_FLOW_TRAIN_IMAGE0_OUTPUT_FILEPATH = os.path.join(
     TRAIN_OUTPUT_REF_DIRPATH,
@@ -111,12 +99,6 @@ KITTI_STEREO_FLOW_TRAIN_LEFT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH = os.path.join
 KITTI_STEREO_FLOW_TRAIN_RIGHT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH = os.path.join(
     TRAIN_OUTPUT_REF_DIRPATH,
     'kitti_stereo_flow_train_right_focal_length_baseline.txt')
-KITTI_STEREO_FLOW_TRAIN_SEG0_OUTPUT_FILEPATH = os.path.join(
-    TRAIN_OUTPUT_REF_DIRPATH,
-    'kitti_stereo_flow_train_seg0.txt')
-KITTI_STEREO_FLOW_TRAIN_SEG1_OUTPUT_FILEPATH = os.path.join(
-    TRAIN_OUTPUT_REF_DIRPATH,
-    'kitti_stereo_flow_train_seg1.txt')
 
 KITTI_STEREO_FLOW_VAL_IMAGE0_OUTPUT_FILEPATH = os.path.join(
     VAL_OUTPUT_REF_DIRPATH,
@@ -139,12 +121,6 @@ KITTI_STEREO_FLOW_VAL_LEFT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH = os.path.join(
 KITTI_STEREO_FLOW_VAL_RIGHT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH = os.path.join(
     VAL_OUTPUT_REF_DIRPATH,
     'kitti_stereo_flow_val_right_focal_length_baseline.txt')
-KITTI_STEREO_FLOW_VAL_SEG0_OUTPUT_FILEPATH = os.path.join(
-    VAL_OUTPUT_REF_DIRPATH,
-    'kitti_stereo_flow_val_seg0.txt')
-KITTI_STEREO_FLOW_VAL_SEG1_OUTPUT_FILEPATH = os.path.join(
-    VAL_OUTPUT_REF_DIRPATH,
-    'kitti_stereo_flow_val_seg1.txt')
 
 
 # KITTI scene flow dataset
@@ -272,9 +248,6 @@ for image0_path, image1_path in zip(kitti_train_image0_paths, kitti_train_image1
     assert image0_filename == image1_filename,  \
         'Mis-matched filename {}, {}'.format(image0_filename, image1_filename)
 
-kitti_train_seg0_paths = [get_seg(x) for x in kitti_train_image0_paths]
-kitti_train_seg1_paths = [get_seg(x) for x in kitti_train_image1_paths]
-
 print('Storing %d left KITTI training image file paths into: %s' %
     (len(kitti_train_image0_paths), KITTI_TRAIN_IMAGE0_OUTPUT_FILEPATH))
 data_utils.write_paths(
@@ -284,16 +257,6 @@ print('Storing %d right KITTI training image file paths into: %s' %
     (len(kitti_train_image1_paths), KITTI_TRAIN_IMAGE1_OUTPUT_FILEPATH))
 data_utils.write_paths(
     KITTI_TRAIN_IMAGE1_OUTPUT_FILEPATH, kitti_train_image1_paths)
-
-print('Storing %d left KITTI training segmentation file paths into: %s' %
-    (len(kitti_train_seg0_paths), KITTI_TRAIN_SEGMENTATION0_OUTPUT_FILEPATH))
-data_utils.write_paths(
-    KITTI_TRAIN_SEGMENTATION0_OUTPUT_FILEPATH, kitti_train_seg0_paths)
-
-print('Storing %d right KITTI training segmentation file paths into: %s' %
-    (len(kitti_train_seg1_paths), KITTI_TRAIN_SEGMENTATION1_OUTPUT_FILEPATH))
-data_utils.write_paths(
-    KITTI_TRAIN_SEGMENTATION1_OUTPUT_FILEPATH, kitti_train_seg1_paths)
 
 
 '''
@@ -308,8 +271,6 @@ kitti_stereo_flow_disparity_paths = sorted(
 kitti_stereo_flow_intrinsics_paths = sorted(
     glob.glob(os.path.join(KITTI_STEREO_FLOW_DIRPATH, 'calib', '*.txt')))
 
-kitti_stereo_flow_seg0_paths = [get_seg(x) for x in kitti_stereo_flow_image0_paths]
-kitti_stereo_flow_seg1_paths = [get_seg(x) for x in kitti_stereo_flow_image1_paths]
 
 if not os.path.exists(os.path.join(KITTI_STEREO_FLOW_DIRPATH, 'intrinsics_left')):
     os.makedirs(os.path.join(KITTI_STEREO_FLOW_DIRPATH, 'intrinsics_left'))
@@ -438,8 +399,6 @@ kitti_stereo_flow_train_left_intrinsics_paths = kitti_stereo_flow_left_intrinsic
 kitti_stereo_flow_train_right_intrinsics_paths = kitti_stereo_flow_right_intrinsics_paths[:160]
 kitti_stereo_flow_train_left_focal_length_baseline_paths = kitti_stereo_flow_left_focal_length_baseline_paths[:160]
 kitti_stereo_flow_train_right_focal_length_baseline_paths = kitti_stereo_flow_right_focal_length_baseline_paths[:160]
-kitti_stereo_flow_train_seg0_paths = kitti_stereo_flow_seg0_paths[:160]
-kitti_stereo_flow_train_seg1_paths = kitti_stereo_flow_seg1_paths[:160]
 
 kitti_stereo_flow_val_image0_paths = kitti_stereo_flow_image0_paths[160:]
 kitti_stereo_flow_val_image1_paths = kitti_stereo_flow_image1_paths[160:]
@@ -448,8 +407,6 @@ kitti_stereo_flow_val_left_intrinsics_paths = kitti_stereo_flow_left_intrinsics_
 kitti_stereo_flow_val_right_intrinsics_paths = kitti_stereo_flow_right_intrinsics_paths[160:]
 kitti_stereo_flow_val_left_focal_length_baseline_paths = kitti_stereo_flow_left_focal_length_baseline_paths[160:]
 kitti_stereo_flow_val_right_focal_length_baseline_paths = kitti_stereo_flow_right_focal_length_baseline_paths[160:]
-kitti_stereo_flow_val_seg0_paths = kitti_stereo_flow_seg0_paths[160:]
-kitti_stereo_flow_val_seg1_paths = kitti_stereo_flow_seg1_paths[160:]
 
 
 # Store all paths
@@ -488,16 +445,6 @@ print('Storing %d right KITTI stereo flow (KITTI 2012) focal_length_baseline fil
 data_utils.write_paths(
     KITTI_STEREO_FLOW_ALL_RIGHT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH, kitti_stereo_flow_right_focal_length_baseline_paths)
 
-print('Storing %d left KITTI stereo flow (KITTI 2012) segmentation file paths into: %s' %
-    (len(kitti_stereo_flow_seg0_paths), KITTI_STEREO_FLOW_ALL_SEG0_OUTPUT_FILEPATH))
-data_utils.write_paths(
-    KITTI_STEREO_FLOW_ALL_SEG0_OUTPUT_FILEPATH, kitti_stereo_flow_seg0_paths)
-
-print('Storing %d right KITTI stereo flow (KITTI 2012) segmentation file paths into: %s' %
-    (len(kitti_stereo_flow_seg1_paths), KITTI_STEREO_FLOW_ALL_SEG1_OUTPUT_FILEPATH))
-data_utils.write_paths(
-    KITTI_STEREO_FLOW_ALL_SEG1_OUTPUT_FILEPATH, kitti_stereo_flow_seg1_paths)
-
 # Store training paths
 print('Storing %d left KITTI stereo flow (KITTI 2012) training image file paths into: %s' %
     (len(kitti_stereo_flow_train_image0_paths), KITTI_STEREO_FLOW_TRAIN_IMAGE0_OUTPUT_FILEPATH))
@@ -533,16 +480,6 @@ print('Storing %d right KITTI stereo flow (KITTI 2012) training focal_length_bas
     (len(kitti_stereo_flow_train_right_focal_length_baseline_paths), KITTI_STEREO_FLOW_TRAIN_RIGHT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH))
 data_utils.write_paths(
     KITTI_STEREO_FLOW_TRAIN_RIGHT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH, kitti_stereo_flow_train_right_focal_length_baseline_paths)
-
-print('Storing %d right KITTI stereo flow (KITTI 2012) training segmentation file paths into: %s' %
-    (len(kitti_stereo_flow_train_seg1_paths), KITTI_STEREO_FLOW_TRAIN_SEG1_OUTPUT_FILEPATH))
-data_utils.write_paths(
-    KITTI_STEREO_FLOW_TRAIN_SEG1_OUTPUT_FILEPATH, kitti_stereo_flow_train_seg1_paths)
-
-print('Storing %d left KITTI stereo flow (KITTI 2012) training segmentation file paths into: %s' %
-    (len(kitti_stereo_flow_train_seg0_paths), KITTI_STEREO_FLOW_TRAIN_SEG0_OUTPUT_FILEPATH))
-data_utils.write_paths(
-    KITTI_STEREO_FLOW_TRAIN_SEG0_OUTPUT_FILEPATH, kitti_stereo_flow_train_seg0_paths)
 
 # Store validation paths
 print('Storing %d left KITTI stereo flow (KITTI 2012) validation image file paths into: %s' %
@@ -580,15 +517,6 @@ print('Storing %d right KITTI stereo flow (KITTI 2012) validation focal_length_b
 data_utils.write_paths(
     KITTI_STEREO_FLOW_VAL_RIGHT_FOCALLENGTH_BASELINE_OUTPUT_FILEPATH, kitti_stereo_flow_val_right_focal_length_baseline_paths)
 
-print('Storing %d right KITTI stereo flow (KITTI 2012) validation segmentation file paths into: %s' %
-    (len(kitti_stereo_flow_val_seg1_paths), KITTI_STEREO_FLOW_VAL_SEG1_OUTPUT_FILEPATH))
-data_utils.write_paths(
-    KITTI_STEREO_FLOW_VAL_SEG1_OUTPUT_FILEPATH, kitti_stereo_flow_val_seg1_paths)
-
-print('Storing %d left KITTI stereo flow (KITTI 2012) validation segmentation file paths into: %s' %
-    (len(kitti_stereo_flow_val_seg0_paths), KITTI_STEREO_FLOW_VAL_SEG0_OUTPUT_FILEPATH))
-data_utils.write_paths(
-    KITTI_STEREO_FLOW_VAL_SEG0_OUTPUT_FILEPATH, kitti_stereo_flow_val_seg0_paths)
 
 '''
 Generate dataset paths for KITTI scene flow (KITTI 2015)

@@ -8,7 +8,7 @@ python external_src/PSMNet/main.py \
     --datapath data/scene_flow_datasets/ \
     --epochs 10 \
     --num_deform_layers 6 \
-    --savemodel psmnet_deform6/
+    --savemodel trained_stereo_models/psmnet_deform6/
 
 
 
@@ -19,6 +19,6 @@ python external_src/PSMNet/finetune.py \
     --datapath data/kitti_scene_flow/training \
     --epochs 300 \
     --num_deform_layers 6 \
-    --loadmodel psmnet_deform6/sceneflow/checkpoint_10.tar \
-    --savemodel psmnet_deform6/kitti/
+    --loadmodel trained_stereo_models/psmnet_deform6/sceneflow/checkpoint_10.tar \
+    --savemodel trained_stereo_models/psmnet_deform6/kitti/
 

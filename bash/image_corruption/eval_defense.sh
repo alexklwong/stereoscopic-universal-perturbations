@@ -11,8 +11,8 @@ python src/evaluate_perturb_model.py \
 --n_image_height 256 \
 --n_image_width 640 \
 --stereo_method psmnet \
---defense gaussian \
+--defense_type gaussian \
 --stdev 2 \
---stereo_model_restore_path pretrained_stereo_models/psmnet/pretrained_model_KITTI2015.tar \
+--stereo_model_restore_path pretrained_stereo_models/psmnet/pretrained_KITTI2015.tar \
 --output_dirpath $SUPS_DIRPATH/evaluation_results/psmnet/kitti2015 \
 --device gpu

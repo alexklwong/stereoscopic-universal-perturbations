@@ -110,6 +110,7 @@ ln -s /path/to/flyingthings3d data/scene_flow_datasets/flyingthings3d
 Run the following commands to set up the paths to KITTI raw, KITTI 2012, KITTI 2015, and FlyingThings3D datasets:
 ```
 python setup/setup_dataset_kitti.py
+python setup/setup_dataset_kitti_segmentation.py
 python setup/setup_dataset_flyingthings3d.py
 ```
 This will produce `training`, `validation` and `testing` directories containing text files with paths to the data.
@@ -296,6 +297,91 @@ To train PSMNet with Patch Match and 25 layers of deformable convolutions, setup
 ```
 bash bash/psmnet_deform25_patchmatch/train_psmnet_deform25_patchmatch.sh
 ```
+
+## Finetuning stereo models using adversarial data augmentation <a name="finetune-stereo-models"></a>
+Use the following command to finetune pretrained stereo networks with adversarial data augmentation.
+```
+bash bash/finetune/finetune.sh
+```
+
+To change the stereo model, set the `stereo_method` and its corresponding `stereo_model_restore_path`. To set the various kinds of SUPs used for finetuning, set the `perturb_paths` to a list of paths pointing to the desired SUPs. Additionally, change the `output_norm`, `gradient_scale`, `attack`, `n_perturbation_height`, and `n_perturbation_width` to match the characteristics of the perturbations.
+
+## Evaluating stereo models on image corruptions <a name="image-corruption"></a>
+To evaluate the stereo models on various image corruptions, install Wand using the following commands
+```
+pip install Wand
+sudo apt-get install libmagickwand-dev
+```
+
+Run the following command for evaluation
+```
+bash bash/image_corruption/eval_defense.sh
+```
+
+One can set `defense` parameter to choose between various image corruptions [`jpeg, gaussian, quantization, brightness, contrast, gaussian_noise, shot_noise, pixelate, defocus_blur, motion_blur`]
+
+Gaussian Blur takes an additional arguments `stdev` and `ksize` to set the standard deviation and kernel size respectively.
+
+Here is an example to apply shot noise.
+Change the `defense` argument to `shot_noise` and remove the `stdev` argument
+```
+--defense shot_noise
+```
+
+Run the following command
+```
+bash bash/image_corruption/eval_defense.sh
+```
+
+It should produce the following output
+```
+Apply shot_noise
+Validation results @ step=N/A:
+Error w.r.t. clean images
+             D1-Error          +/-         EPE         +/-
+                3.1452      3.6255      0.5840      0.6086
+Error w.r.t. ground truth
+             D1-Error          +/-         EPE         +/-
+                6.7159      4.5877      1.9279      0.1588
+```
+
+## Evaluating classwise error for SUPs
+To evaluate the effect of SUPs on different classes in the stereo pair, run the following command
+```
+bash bash/plots/classwise_error_[MODEL_NAME].sh
+```
+with [MODEL NAME] replaced with `aanet`, `deeppruner`, or `psmnet`.
+
+Here is an example 
+```
+bash bash/plots/classwise_error_aanet.sh
+```
+
+The above command should output the following result
+```
+Segmentation breakdown (Clean):
+Class         N_Images   D1-Error          +/-         EPE         +/-
+0                  200     15.5129     19.4528      2.9016      3.9324
+1                  164     14.3572     23.1786      2.9827      5.6906
+2                  145     13.8828     17.9816      2.9266      4.9536
+3                   73     13.8061     27.1146      3.6530      7.6788
+4                  101      9.6012     17.2515      1.9422      3.9224
+5                  192     11.0988     18.3544      2.6776      5.2158
+6                   89      6.1946     18.3463      1.4684      4.4732
+7                  172     10.1786     21.2611      1.9035      4.4573
+8                  197     22.2040     20.7369      6.1704      6.6853
+9                  190     14.2260     20.6267      3.0203      5.1756
+10                 199     37.7008     29.1177      8.2031      7.9905
+11                  47      0.9713      2.7165      0.3077      0.4254
+12                  24      8.6974     22.0537      2.1445      7.4256
+13                 199      3.9860     10.9995      0.8837      3.5998
+14                  78      2.6145     12.1146      0.9448      4.2593
+15                  13      3.3361     10.4722      0.4140      0.7162
+16                  20      5.7661     13.2173      0.9612      0.9662
+17                   5      0.8254      1.6508      0.2326      0.2029
+18                  28      4.8824     18.7240      1.7395      6.9962
+```
+The corresponding bar plot can be found in the `plots/classwise_error` directory
 
 ## Related projects <a name="related-projects"></a>
 You may also find the following projects useful:

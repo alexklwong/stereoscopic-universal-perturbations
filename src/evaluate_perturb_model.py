@@ -45,7 +45,7 @@ parser.add_argument('--n_image_width',
 parser.add_argument('--output_norm',
     type=float, default=settings.OUTPUT_NORM, help='Output norm of noise')
 parser.add_argument('--attack',
-    type=str, default=settings.ATTACK, help='Perturbation attack method: [full, tile, patch]')
+    type=str, default=settings.ATTACK, help='Perturbation attack method: [full, tile]')
 parser.add_argument('--n_perturbation_height',
     type=int, default=settings.N_PERTURBATION_HEIGHT, help='Height of perturbation')
 parser.add_argument('--n_perturbation_width',
@@ -53,7 +53,7 @@ parser.add_argument('--n_perturbation_width',
 parser.add_argument('--perturb_model_restore_path',
     type=str, default=None, help='Path to restore perturbations checkpoint')
 parser.add_argument('--defense_type',
-    type=str, default=None, help='Type of defense [jpeg, gaussian, quantization, brightness, contrast]')
+    type=str, default=None, help='Type of defense [jpeg, gaussian, quantization, brightness, contrast, gaussian_noise, shot_noise, impulse_noise, pixelate, defocus_blur, motion_blur]')
 parser.add_argument('--ksize',
     type=int, default=settings.GAUSSIAN_KSIZE, help='Kernel size for gaussian filter')
 parser.add_argument('--stdev',

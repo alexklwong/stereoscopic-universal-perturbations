@@ -18,6 +18,8 @@ from io import BytesIO
 from wand.image import Image as WandImage
 from wand.api import library as wandlibrary
 import ctypes
+import numpy as np
+import cv2
 
 '''
 Initializing Motion Blur class
