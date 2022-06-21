@@ -92,7 +92,7 @@ Not only does our design mitigate the adversarial effect, they also improve the 
 ## Setting up your virtual environment <a name="setting-up-virtenv"></a>
 We will create a virtual environment with the necessary dependencies.
 
-For Nvidia GTX 10 series (CUDA 10.1)
+PyTorch version in requirememts.txt is tied to CUDA 10.x because we release precompiled binaries for AANet. If you compile AANet on your own you may use CUDA 11.x.
 ```
 virtualenv -p /usr/bin/python3.7 sups-py37env
 source sups-py37env/bin/activate
