@@ -32,7 +32,6 @@ sys.path.insert(0, 'external_src')
 
 def train(train_image0_path,
           train_image1_path,
-          train_ground_truth_path,
           train_pseudo_ground_truth_path,
           val_image0_path,
           val_image1_path,
@@ -96,15 +95,9 @@ def train(train_image0_path,
 
     assert n_train_sample == len(train_image1_paths)
 
-    train_ground_truth_available = train_ground_truth_path is not None
     train_pseudo_ground_truth_available = train_pseudo_ground_truth_path is not None
 
-    if train_ground_truth_available:
-        train_ground_truth_paths = data_utils.read_paths(train_ground_truth_path)
-
-        assert n_train_sample == len(train_ground_truth_paths)
-    else:
-        train_ground_truth_paths = [None] * n_train_sample
+    train_ground_truth_paths = [None] * n_train_sample
 
     if train_pseudo_ground_truth_available:
         train_pseudo_ground_truth_paths = data_utils.read_paths(train_pseudo_ground_truth_path)
@@ -189,7 +182,6 @@ def train(train_image0_path,
     train_input_paths = [
         train_image0_path,
         train_image1_path,
-        train_ground_truth_path,
         train_pseudo_ground_truth_path
     ]
 
@@ -260,11 +252,6 @@ def train(train_image0_path,
             train_step = train_step + 1
 
             # Move data to device
-            if train_ground_truth_available:
-                ground_truth = ground_truth.to(device)
-            else:
-                ground_truth = None
-
             if train_pseudo_ground_truth_available:
                 pseudo_ground_truth = pseudo_ground_truth.to(device)
             else:
@@ -281,7 +268,6 @@ def train(train_image0_path,
                 stereo_model=stereo_model,
                 image0=image0,
                 image1=image1,
-                ground_truth=ground_truth,
                 pseudo_ground_truth=pseudo_ground_truth)
 
             # Log results

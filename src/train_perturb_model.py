@@ -25,7 +25,7 @@ parser.add_argument('--train_image0_path',
     type=str, required=True, help='Path to list of left image paths')
 parser.add_argument('--train_image1_path',
     type=str, required=True, help='Path to list of right image paths')
-parser.add_argument('--train_ground_truth_path',
+parser.add_argument('--train_pseudo_ground_truth_path',
     type=str, default=None, help='Path to list of ground truth disparity paths')
 parser.add_argument('--val_image0_path',
     type=str, default=None, help='Path to list of left image paths')
@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
     train(train_image0_path=args.train_image0_path,
           train_image1_path=args.train_image1_path,
-          train_ground_truth_path=args.train_ground_truth_path,
+          train_pseudo_ground_truth_path=args.train_pseudo_ground_truth_path,
           val_image0_path=args.val_image0_path,
           val_image1_path=args.val_image1_path,
           val_ground_truth_path=args.val_ground_truth_path,

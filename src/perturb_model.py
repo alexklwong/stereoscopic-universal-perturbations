@@ -205,7 +205,6 @@ class PerturbationsModel(object):
                                stereo_model,
                                image0,
                                image1,
-                               ground_truth=None,
                                pseudo_ground_truth=None):
         '''
         Optimizes perturbations based on our method.
@@ -217,8 +216,6 @@ class PerturbationsModel(object):
                 N x C x H x W left image
             image1 : torch.Tensor[float32]
                 N x C x H x W right image
-            ground_truth : torch.Tensor[float32]
-                N x 1 x H x W  ground truth disparity
             pseudo_ground_truth : torch.Tensor[float32]
                 N x 1 x H x W  pseudo (from another model) ground truth disparity
         Returns:
