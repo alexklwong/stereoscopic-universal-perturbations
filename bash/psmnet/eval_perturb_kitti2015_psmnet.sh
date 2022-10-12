@@ -2,8 +2,8 @@
 
 export CUDA_VISIBLE_DEVICES=0
 
-SUPS_DIRPATH=pretrained_perturbations/aanet/tile64_norm002
-SUPS_FILENAME=sups_aanet_tile64_norm002.pth
+SUPS_DIRPATH=pretrained_perturbations/psmnet/tile64_norm002
+SUPS_FILENAME=sups_psmnet_tile64_norm002.pth
 
 python src/evaluate_perturb_model.py \
 --image0_path validation/kitti/kitti_scene_flow_val_image0.txt \
