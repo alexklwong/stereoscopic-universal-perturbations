@@ -92,11 +92,16 @@ Not only does our design mitigate the adversarial effect, they also improve the 
 ## Setting up your virtual environment <a name="setting-up-virtenv"></a>
 We will create a virtual environment with the necessary dependencies.
 
-PyTorch version in requirememts.txt is tied to CUDA 10.x because we release precompiled binaries for AANet. If you compile AANet on your own you may use CUDA 11.x.
+PyTorch version in requirememts.txt is tied to CUDA 10.x because we release precompiled binaries for AANet. If you compile AANet on your own you may use CUDA 11.x i.e. for RTX 30 series GPUs.
 ```
 virtualenv -p /usr/bin/python3.7 sups-py37env
 source sups-py37env/bin/activate
 pip install -r requirements.txt
+```
+
+If you are using RTX 30 series GPU, you will also need to run:
+```
+pip install torch==1.9.1+cu111 torchvision==0.10.1+cu111 torchaudio==0.9.1 -f https://download.pytorch.org/whl/torch_stable.html
 ```
 
 ## Setting up your datasets <a name="setting-up-datasets"></a>
